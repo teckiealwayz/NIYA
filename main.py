@@ -26,5 +26,3 @@ while running:
         elif evt.type == pygame.KEYDOWN and evt.key == pygame.K_ESCAPE:
             pygame.quit()
             sys.exit()
-        elif (pygame.key.get_pressed()[pygame.K_c]):
-            print("Hello")
