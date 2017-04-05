@@ -12,4 +12,15 @@ def title(screen):
     pygame.display.flip()
 
 def menu(screen):
-    print("Welcome")
+
+    myfont = pygame.font.SysFont("monospace", 15)
+
+    # render text
+    instructions = myfont.render("Instructions", 1, WHITE)
+    start = myfont.render("Start", 1, WHITE)
+    menu = myfont.render("Menu", 1, WHITE)
+    screen.blit(menu, (300, 50))
+    screen.blit(instructions, (500, 300))
+    screen.blit(start, (100,300))
+    pygame.display.flip()
+    print("Welcome\nMenu\nInstructions\nStart")
