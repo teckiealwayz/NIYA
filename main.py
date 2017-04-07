@@ -1,48 +1,72 @@
-import pygame, sys
+import pygame, sys, random
 from settings import *
 
 class Tile:
-    def __init__(self, screen, pointx, pointy, x,y):
-        self.pointx = pointx
-        self.pointy = pointy
+    def __init__(self, screen, pointx, pointy, x,y, counter):
+        self.startx = pointx
+        self.starty = pointy
         self.size = tile_size
-        self.isActive = True
         self.screen = screen
         self.x = x
         self.y = y
+        self.counter = counter
+
+
+
+
 
     def draw_tile(self):
-        #pygame.draw.Rect(self.screen, self.color1, self.size /2, self.size/2)
-        pygame.draw.rect(self.screen, rect_color[self.x], (self.pointx, self.pointy, self.size, self.size))
-        pygame.draw.ellipse(self.screen, circle_color[self.y], (self.pointx, self.pointy, self.size / 2, self.size / 2))
 
+        print "inside tile", COLORS
+        pygame.draw.rect(self.screen, COLORS[self.counter], (self.startx, self.starty, self.size, self.size))
+        self.color = COLORS[self.counter]
+        pygame.draw.ellipse(self.screen, COLORS2[self.counter], (self.startx, self.starty, self.size / 2, self.size / 2))
+        self.color2 = COLORS2[self.counter]
+
+
+    def update(self, x, y, turn):
+
+        if self.startx < x < self.startx + self.size and self.starty < y < self.starty + self.size:
+            if turn % 2 == 0:
+                pygame.draw.rect(self.screen, RED, (self.startx, self.starty, self.size, self.size))
+            else:
+                pygame.draw.rect(self.screen, BLACK, (self.startx, self.starty, self.size, self.size))
 
 class Game:
     def __init__(self):
         pygame.init()
 
         self.screen = pygame.display.set_mode((screen_width, screen_height))
+        self.screen.fill(SPRING_GREEN)
         self.running = True
         self.tile = []
+        self.counter = 0
+        self.color_count = 0
+        self.list_count = 0
+        self.x = 0
+        self.y = 0
+        self.player_turn = 0
 
+    def draw_board(self):
 
-
-
-    def draw_grid(self):
 
 
         for x in range(board_width):
+            if self.color_count < 4:
+                random.shuffle(COLORS)
+                random.shuffle(COLORS2)
+                self.color_count += 1
             for y in range(board_width):
                 startx = (x * tile_size) + XMARGIN
                 starty = (y * tile_size) + YMARGIN
                 endy = YMARGIN + (board_height * tile_size)
+                if(self.counter > 3):
+                    self.counter = 0
 
-                self.tile.append( Tile(self.screen, startx,starty, x,y))
-
-        for tile in range(len(self.tile)):
-            self.tile[tile].draw_tile()
-
-
+                self.tile.append( Tile(self.screen, startx,starty, x,y, self.counter))
+                self.tile[self.list_count].draw_tile()
+                self.counter += 1
+                self.list_count += 1
 
 
 
@@ -61,22 +85,33 @@ class Game:
             endy = (y * tile_size) + YMARGIN
             pygame.draw.line(self.screen, WHITE, (startx, starty), (endx, endy))
 
-        #draw tiles
 
+    def update(self):
 
+        for tile in range(len(self.tile)):
+            self.tile[tile].update(self.x,self.y, self.player_turn)
 
 
     def events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False;
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                # Set the x, y postions of the mouse click
+                self.player_turn += 1
+                self.x, self.y = event.pos
 
     def run(self):
+
+        self.draw_board()
+
         while self.running:
-            self.screen.fill(BLACK)
-            self.draw_grid()
+
             self.events()
+            self.update()
             pygame.display.flip()
+
+
 
 
 
