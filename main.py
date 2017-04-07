@@ -1,5 +1,6 @@
 import pygame, sys, random
 from settings import *
+from functions import *
 
 class Tile:
     def __init__(self, screen, pointx, pointy, x,y, counter):
@@ -102,11 +103,11 @@ class Game:
                 self.x, self.y = event.pos
 
     def run(self):
-
+        self.screen.fill(BLACK)
+        pygame.display.flip()
         self.draw_board()
 
         while self.running:
-
             self.events()
             self.update()
             pygame.display.flip()
@@ -114,10 +115,33 @@ class Game:
 
 
 
-
+start = True
+instruct = True
 
 game = Game()
-game.run()
+title(game.screen)
+
+while start:
+
+    pygame.event.pump()
+    for evt in pygame.event.get():
+        if evt.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        elif evt.type == pygame.KEYDOWN and evt.key == pygame.K_ESCAPE:
+            pygame.quit()
+            sys.exit()
+    if (menu(game.screen) == "Instructions"):
+        instructions(game.screen)
+        # if pygame.mouse.get_pressed() == (1,0,0):
+        #     print("Clicked")
+    elif (menu(game.screen) == "Start"):
+        start = False
+        game.run()
+
+
+
+
 
 '''
 import pygame
@@ -140,6 +164,8 @@ menu(screen)
 # Main game loop
 while running:
 
+    menu(screen)
+
     pygame.event.pump()
     for evt in pygame.event.get():
         if evt.type == pygame.QUIT:
@@ -148,6 +174,16 @@ while running:
         elif evt.type == pygame.KEYDOWN and evt.key == pygame.K_ESCAPE:
             pygame.quit()
             sys.exit()
+
+    if (menu(screen) == "Instructions"):
+        print("Got it")
+        instructions(screen)
+    elif (menu(screen) == "Start"):
+        print("Started")||||||| .r5
+
+    if pygame.mouse.get_pressed() == (1,0,0):
+        print(pygame.mouse.get_pos())
+=======
 
     if pygame.mouse.get_pressed() == (1,0,0):
         print(pygame.mouse.get_pos())
