@@ -13,9 +13,6 @@ class Tile:
         self.counter = counter
 
 
-
-
-
     def draw_tile(self):
 
         print "inside tile", COLORS
@@ -24,14 +21,24 @@ class Tile:
         pygame.draw.ellipse(self.screen, COLORS2[self.counter], (self.startx, self.starty, self.size / 2, self.size / 2))
         self.color2 = COLORS2[self.counter]
 
-
     def update(self, x, y, turn):
 
         if self.startx < x < self.startx + self.size and self.starty < y < self.starty + self.size:
+
             if turn % 2 == 0:
-                pygame.draw.rect(self.screen, RED, (self.startx, self.starty, self.size, self.size))
-            else:
                 pygame.draw.rect(self.screen, BLACK, (self.startx, self.starty, self.size, self.size))
+                pygame.draw.rect(self.screen, self.color,
+                                 (XMARGIN - self.size * 1.2, screen_height / 2, self.size, self.size))
+                pygame.draw.ellipse(self.screen, self.color2,
+                                    (XMARGIN - self.size * 1.2, screen_height / 2, self.size / 2, self.size / 2))
+
+            else:
+                pygame.draw.rect(self.screen, RED, (self.startx, self.starty, self.size, self.size))
+                pygame.draw.rect(self.screen, self.color, (
+                XMARGIN + board_width * self.size + self.size / 3, screen_height / 2, self.size, self.size))
+                pygame.draw.ellipse(self.screen, self.color2, (
+                XMARGIN + board_width * self.size + self.size / 3, screen_height / 2, self.size / 2, self.size / 2))
+
 
 class Game:
     def __init__(self):
@@ -97,13 +104,16 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False;
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Set the x, y postions of the mouse click
                 self.player_turn += 1
                 self.x, self.y = event.pos
 
     def run(self):
-        self.screen.fill(BLACK)
+        self.screen.fill(SPRING_GREEN)
         pygame.display.flip()
         self.draw_board()
 

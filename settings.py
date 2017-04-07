@@ -1,5 +1,5 @@
-screen_width = 600
-screen_height = 600
+screen_width = 700
+screen_height = 700
 board_width = 4
 board_height = 4
 tile_size = 100
