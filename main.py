@@ -16,10 +16,11 @@ class Tile:
     def draw_tile(self):
 
         print "inside tile", COLORS
-        pygame.draw.rect(self.screen, COLORS[self.counter], (self.startx, self.starty, self.size, self.size))
-        self.color = COLORS[self.counter]
-        pygame.draw.ellipse(self.screen, COLORS2[self.counter], (self.startx, self.starty, self.size / 2, self.size / 2))
-        self.color2 = COLORS2[self.counter]
+        print self.counter
+        pygame.draw.rect(self.screen, list_colors[self.counter][0], (self.startx, self.starty, self.size, self.size))
+        self.color = list_colors[self.counter][0]
+        pygame.draw.ellipse(self.screen, list_colors[self.counter][1], (self.startx, self.starty, self.size / 2, self.size / 2))
+        self.color2 = list_colors[self.counter][1]
 
     def update(self, x, y, turn):
 
@@ -68,8 +69,8 @@ class Game:
                 startx = (x * tile_size) + XMARGIN
                 starty = (y * tile_size) + YMARGIN
                 endy = YMARGIN + (board_height * tile_size)
-                if(self.counter > 3):
-                    self.counter = 0
+                # if(self.counter > 3):
+                #     self.counter = 0
 
                 self.tile.append( Tile(self.screen, startx,starty, x,y, self.counter))
                 self.tile[self.list_count].draw_tile()

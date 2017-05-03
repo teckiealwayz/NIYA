@@ -1,3 +1,8 @@
+import random
+screen_width = 600
+screen_height = 600
+screen_width = 600
+screen_height = 600
 screen_width = 700
 screen_height = 700
 board_width = 4
@@ -26,3 +31,20 @@ SPRING_GREEN = (0,250,154)
 
 COLORS = [MAGENTA, GREEN, BLUE, YELLOW]
 COLORS2 = [PURPLE, BLACK, CYAN, PINK]
+
+def random_color(list1, list2):
+    colors = []
+    for x in list1:
+        for y in list2:
+            colors.append((x,y))
+    return colors
+
+list_colors = random_color(COLORS,COLORS2)
+random.shuffle(list_colors)
+print list_colors[0]
+print list_colors[1]
+print list_colors[2]
+print list_colors[3]
+print list_colors[4]
+print list_colors[5]
+print list_colors[6]
