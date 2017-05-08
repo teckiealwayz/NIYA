@@ -112,6 +112,7 @@ class Game:
                 # Set the x, y postions of the mouse click
                 self.player_turn += 1
                 self.x, self.y = event.pos
+                print("Mouse clicked", event.pos)
 
     def run(self):
         self.screen.fill(SPRING_GREEN)
@@ -149,55 +150,3 @@ while start:
     elif (menu(game.screen) == "Start"):
         start = False
         game.run()
-
-
-
-
-
-'''
-import pygame
-import sys
-from functions import *
-from settings import *
-
-# initialize pygame
-pygame.init()
-# boolean variable for game loop
-running = True
-# Open a window on the screen
-screen = pygame.display.set_mode([SCREEN_WIDTH,SCREEN_HEIGHT])
-pygame.display.set_caption("NIYA")
-
-# Call to the menu function to display title then menu
-title(screen)
-menu(screen)
-
-# Main game loop
-while running:
-
-    menu(screen)
-
-    pygame.event.pump()
-    for evt in pygame.event.get():
-        if evt.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-        elif evt.type == pygame.KEYDOWN and evt.key == pygame.K_ESCAPE:
-            pygame.quit()
-            sys.exit()
-
-    if (menu(screen) == "Instructions"):
-        print("Got it")
-        instructions(screen)
-    elif (menu(screen) == "Start"):
-        print("Started")||||||| .r5
-
-    if pygame.mouse.get_pressed() == (1,0,0):
-        print(pygame.mouse.get_pos())
-=======
-
-    if pygame.mouse.get_pressed() == (1,0,0):
-        print(pygame.mouse.get_pos())
-
-
-'''
