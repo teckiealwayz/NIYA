@@ -41,10 +41,3 @@ def random_color(list1, list2):
 
 list_colors = random_color(COLORS,COLORS2)
 random.shuffle(list_colors)
-print list_colors[0]
-print list_colors[1]
-print list_colors[2]
-print list_colors[3]
-print list_colors[4]
-print list_colors[5]
-print list_colors[6]
